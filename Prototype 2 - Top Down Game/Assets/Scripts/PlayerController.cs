@@ -67,9 +67,9 @@ if(transform.position.y > yRange)
 
      }
       
-     if (Input.GetKeyDown(KeyCode.Space))
+     if (Input.GetButtonDown("Fire1"))
      {
-        Instantiate(projectile, launcher.transform.position, projectile.transform.rotation);
+        Instantiate(projectile, launcher.transform.position, launcher.transform.rotation);
 
 
      } 
