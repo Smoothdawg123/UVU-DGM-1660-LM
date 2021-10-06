@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     
-    public float moveSpeed, jumpForce;      //movement speed in units per second   //force applied upwards
+    public float moveSpeed;
+    
+    public float jumpForce;      //movement speed in units per second   //force applied upwards
 
     public float lookSensitivity;            // Mouse look sensitivity
 
@@ -19,12 +21,11 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
-    private float Vector3;
 
     void Start()
     {
         //Get Components
-        camera = camera.main;
+        camera = Camera.main;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -33,6 +34,14 @@ public class PlayerController : MonoBehaviour
     {
         
         Move();
+        CamLook();
+    
+    }
+
+    void FixedUpdate()
+    {
+        if(Input.GetButtonDown("Jump"))
+            Jump();
     }
 
     void Move()
@@ -41,7 +50,10 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal") * moveSpeed;
         float z = Input.GetAxis("Vertical") * moveSpeed;
 
-        rb.velocity = new vector3(x, rb.velocity.y, z);
+        // rb.velocity = new Vector3 (x, rb.velocity.y, z); - old code
+        Vector3 dir = transform.right * x + transform.forward *z;
+        dir.y = rb.velocity.y;
+        rb.velocity = dir;
 
     }
 
@@ -50,8 +62,21 @@ public class PlayerController : MonoBehaviour
         float y = Input.GetAxis("Mouse X") * lookSensitivity;
         rotX -= rotX + Input.GetAxis("Mouse Y") * lookSensitivity;
         
-        
+        rotX = Mathf.Clamp(rotX, minLookX, maxLookX);
+        camera.transform.localRotation = Quaternion.Euler(-rotX, 0, 0);
+        transform.eulerAngles += Vector3.up * y;
     }
+
+    void Jump()
+    {
+        Ray ray = new Ray(transform.position, Vector3.down);
+
+        if(Physics.Raycast(ray, 1.1f))
+            rb.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
+
+
+    }
+
 
 
 }
