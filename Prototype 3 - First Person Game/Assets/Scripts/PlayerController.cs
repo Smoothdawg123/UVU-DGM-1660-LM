@@ -21,6 +21,14 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;
 
+    private Weapon weapon;
+
+    void Awake()
+    {
+        weapon = GetComponent<Weapon>();
+
+    }
+
 
     void Start()
     {
@@ -35,7 +43,13 @@ public class PlayerController : MonoBehaviour
         
         Move();
         CamLook();
-    
+        // Fire Button
+        if(Input.GetButton("Fire1"))
+        {
+            if(weapon.CanShoot())
+                weapon.Shoot();
+
+        }
     }
 
     void FixedUpdate()
