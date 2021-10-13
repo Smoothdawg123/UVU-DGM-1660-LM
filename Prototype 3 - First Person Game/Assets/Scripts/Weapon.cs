@@ -27,7 +27,7 @@ public class Weapon : MonoBehaviour
     void Awake()
     {
         // Disable Cursor
-        Cursor.lookState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;
         if(GetComponent<PlayerController>())
             isPlayer = true; 
 

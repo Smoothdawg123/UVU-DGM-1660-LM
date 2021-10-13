@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControls : MonoBehaviour
 {
-    
     public float moveSpeed;
     
     public float jumpForce;      //movement speed in units per second   //force applied upwards
@@ -54,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("Jump"))
             Jump();
     }
 
@@ -95,7 +94,4 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
-
-
 }
