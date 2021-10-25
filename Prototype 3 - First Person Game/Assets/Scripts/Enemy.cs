@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     {
         // Get the Component
         weapon = GetComponent<Weapon>();
-        target = FindObjectOfType<PlayerController>().gameObject;
+        target = FindObjectOfType<PlayerControls>().gameObject;
         InvokeRepeating("UpdatePath", 0.0f, 0.5f);
 
         curHp = maxHp;
@@ -45,6 +45,44 @@ public class Enemy : MonoBehaviour
         if(transform.position == path[0] + new Vector3(0, yPathOffset, 0))
             path.RemoveAt(0);
     }
+  
+  public void TakeDamage(int damage)
+  {
+      curHp -= damage;
+
+      if(curHp <= 0)
+        Die();
+  }
+
+  void Die()
+  {
+      Destroy(gameObject);
+  }
+
     void Update()
+    {   //Look at the target
+        Vector3 dir = (target.transform.position - transform.position).normalized;
+        float angle = Mathf.Atan2(dir.x,dir.z) * Mathf.Rad2Deg;
+        transform.eulerAngles = Vector3.up * angle;
+        //Calculate the distance between the enemy and the target
+
+        float dist = Vector3.Distance(transform.position, target.transform.position);
+        // If within attack range shoot at target
+        if (dist <= attackRange)
+        {
+            if(weapon.CanShoot())
+                weapon.Shoot();
+        }
+        //If enemy is too far away chase player
     
+        else
+        {
+            ChaseTarget();
+        }
+        
+    }
+
+
+
+
 }

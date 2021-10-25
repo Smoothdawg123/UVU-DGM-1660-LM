@@ -3,31 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControls : MonoBehaviour
-{
-    public float moveSpeed;
-    
-    public float jumpForce;      //movement speed in units per second   //force applied upwards
+{   
+    [Header("Stats")]
+    public float moveSpeed;         //movement speed in units per second 
+    public float jumpForce;         //force applied upwards
 
-    public float lookSensitivity;            // Mouse look sensitivity
-
-    public float maxLookX;                  // lowest down we can look
-
-    public float minLookX;                  // Highest up we can look
-
-    private float rotX;                     // Current x rotation of the camera
-
+    [Header("Mouselook")]
+    public float lookSensitivity;   // Mouse look sensitivit
+    public float maxLookX;          // lowest down we can look
+    public float minLookX;          // Highest up we can look
+    private float rotX;             // Current x rotation of the camera
     private Camera camera;
-
     private Rigidbody rb;
-
     private Weapon weapon;
+    public int curHp, maxHp;
+    
 
     void Awake()
     {
         weapon = GetComponent<Weapon>();
 
     }
-
 
     void Start()
     {
@@ -37,26 +33,19 @@ public class PlayerControls : MonoBehaviour
     }
 
     
-    void Update()
+    //Applies Damage to the Player
+    public void TakeDamage(int damage)
     {
-        
-        Move();
-        CamLook();
-        // Fire Button
-        if(Input.GetButton("Fire1"))
-        {
-            if(weapon.CanShoot())
-                weapon.Shoot();
+      curHp -= damage;
 
-        }
+      if(curHp <= 0)
+        Die();
     }
-
-    void FixedUpdate()
+    // If health reaches 0 than run Die()
+    void Die()
     {
-        if(Input.GetButtonDown("Jump"))
-            Jump();
+      
     }
-
     void Move()
     {
 
@@ -67,9 +56,7 @@ public class PlayerControls : MonoBehaviour
         Vector3 dir = transform.right * x + transform.forward * z;
         dir.y = rb.velocity.y;
         rb.velocity = dir;
-
     }
-
     void CamLook()
     {
         float y = Input.GetAxis("Mouse X") * lookSensitivity;
@@ -80,6 +67,11 @@ public class PlayerControls : MonoBehaviour
         transform.eulerAngles += Vector3.up * y;
     }
 
+    void FixedUpdate()
+    {
+        if(Input.GetButtonDown("Jump"))
+            Jump();
+    }
     void Jump()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
@@ -89,9 +81,17 @@ public class PlayerControls : MonoBehaviour
             rb.AddForce (Vector3.up * jumpForce, ForceMode.Impulse);
 
         }
-            
-            
+    }
+    void Update()
+    {
+        Move();
+        CamLook();
+        // Fire Button
+        if(Input.GetButton("Fire1"))
+        {
+            if(weapon.CanShoot())
+                weapon.Shoot();
 
-
+        }
     }
 }

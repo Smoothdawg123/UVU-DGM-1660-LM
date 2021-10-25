@@ -16,15 +16,12 @@ public class Weapon : MonoBehaviour
     private float lastShootTime;
     private bool isPlayer;
 
-
     void Awake()
     {
         // Disable Cursor
         Cursor.lockState = CursorLockMode.Locked;
-        if(GetComponent<PlayerController>())
+        if(GetComponent<PlayerControls>())
             isPlayer = true; 
-
-
     }
 
 
@@ -35,11 +32,8 @@ public class Weapon : MonoBehaviour
          if(curAmmo > 0 || infiniteAmmo == true)
             return true; 
 
-
         }
-
         return false;
-
     }
 
     public void Shoot ()
@@ -57,14 +51,5 @@ public class Weapon : MonoBehaviour
         bullet.GetComponent<Rigidbody>().velocity = muzzle.forward  * bulletSpeed;
     }
     
-    void Start()
-    {
-        
-    }
-
-    
-    void Update()
-    {
-        
-    }
+  
 }

@@ -236,7 +236,7 @@ GameObject:
   - component: {fileID: 25881455}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,11 +269,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPool: {fileID: 25881448}
   muzzle: {fileID: 190587735}
-  curAmmo: 1
-  maxAmmo: 1
+  curAmmo: 20
+  maxAmmo: 20
   infiniteAmmo: 0
   bulletSpeed: 10
-  shootRate: 0.3
+  shootRate: 0.8
 --- !u!114 &25881450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
   scoreToGive6: 100
   moveSpeed: 6
   attackRange: 20
-  yPathOffset: 0
+  yPathOffset: 3
 --- !u!136 &25881451
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -770,7 +770,7 @@ GameObject:
   - component: {fileID: 539891036}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -870,6 +870,8 @@ MonoBehaviour:
   lookSensitivity: 3
   maxLookX: 45
   minLookX: -45
+  curHp: 20
+  maxHp: 20
 --- !u!54 &539891034
 Rigidbody:
   m_ObjectHideFlags: 0
