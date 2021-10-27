@@ -82,6 +82,16 @@ public class PlayerControls : MonoBehaviour
 
         }
     }
+
+    public void GiveHealth(int amountToGive)
+    {
+        curHp = Mathf.Clamp(curHp + amountToGive, 0, maxHp);
+    }
+
+    public void GiveAmmo(int amountToGive)
+    {
+        weapon.curAmmo = Mathf.Clamp(weapon.curAmmo + amountToGive, 0, weapon.maxAmmo);
+    }
     void Update()
     {
         Move();
@@ -91,7 +101,6 @@ public class PlayerControls : MonoBehaviour
         {
             if(weapon.CanShoot())
                 weapon.Shoot();
-
         }
     }
 }
