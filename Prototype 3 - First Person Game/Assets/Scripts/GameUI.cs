@@ -29,11 +29,6 @@ public class GameUI : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void UpdateHealthBar(int curHP, int maxHP)
     {
@@ -78,10 +73,4 @@ public class GameUI : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
