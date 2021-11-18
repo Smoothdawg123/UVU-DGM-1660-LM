@@ -16,7 +16,8 @@ public class PlayerControls : MonoBehaviour
     private Camera camera;
     private Rigidbody rb;
     private Weapon weapon;
-    public int curHp, maxHp;
+    public int curHp;
+    public int maxHp;
     
 
     void Awake()
@@ -30,6 +31,11 @@ public class PlayerControls : MonoBehaviour
         //Get Components
         camera = Camera.main;
         rb = GetComponent<Rigidbody>();
+
+        // Initialize the UI
+        GameUI.instance.UpdateHealthBar(curHp, maxHp);
+        GameUI.instance.UpdateScoreText(0);
+        GameUI.instance.UpdateAmmoText(weapon.curAmmo, weapon.maxAmmo);
     }
 
     
@@ -40,11 +46,15 @@ public class PlayerControls : MonoBehaviour
 
       if(curHp <= 0)
         Die();
+
+      GameUI.instance.UpdateHealthBar(curHp, maxHp);
+
+    
     }
     // If health reaches 0 than run Die()
     void Die()
     {
-      
+      GameManager.instance.LoseGame();
     }
     void Move()
     {
@@ -86,11 +96,14 @@ public class PlayerControls : MonoBehaviour
     public void GiveHealth(int amountToGive)
     {
         curHp = Mathf.Clamp(curHp + amountToGive, 0, maxHp);
+        GameUI.instance.UpdateHealthBar(curHp, maxHp);
+
     }
 
     public void GiveAmmo(int amountToGive)
     {
         weapon.curAmmo = Mathf.Clamp(weapon.curAmmo + amountToGive, 0, weapon.maxAmmo);
+        GameUI.instance.UpdateAmmoText(weapon.curAmmo, weapon.maxAmmo);
     }
     void Update()
     {
@@ -102,5 +115,10 @@ public class PlayerControls : MonoBehaviour
             if(weapon.CanShoot())
                 weapon.Shoot();
         }
+
+        //Freeze game when game is paused
+        if(GameManager.instance.gamePaused == true)
+            return;
     }
+    
 }
