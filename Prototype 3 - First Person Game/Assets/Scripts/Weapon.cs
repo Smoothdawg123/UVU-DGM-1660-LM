@@ -16,6 +16,10 @@ public class Weapon : MonoBehaviour
     private float lastShootTime;
     private bool isPlayer;
     
+    // Set Audio source to Play
+        public AudioClip shootSFX;
+    private AudioSource audioSource;
+    
 
     void Awake()
     {
@@ -23,6 +27,8 @@ public class Weapon : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         if(GetComponent<PlayerControls>())
             isPlayer = true; 
+
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -55,6 +61,8 @@ public class Weapon : MonoBehaviour
         {
             GameUI.instance.UpdateAmmoText(curAmmo, maxAmmo);
         }
+        // Play Shoot Sound Effect
+        audioSource.PlayOneShot(shootSFX);
     }
     
   

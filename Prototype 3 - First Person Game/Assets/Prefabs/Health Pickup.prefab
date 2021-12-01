@@ -113,3 +113,4 @@ MonoBehaviour:
   rotationSpeed: 100
   bobSpeed: 2
   bobHeight: 1
+  pickupSFX: {fileID: 8300000, guid: dd4ccf7331e4a1d448f67c4cacd37067, type: 3}
