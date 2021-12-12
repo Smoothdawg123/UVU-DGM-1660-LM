@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//References I used to help learn and make these sripts.
+//Brackeys on Youtube https://www.youtube.com/channel/UCYbK_tjZ2OrIZFBvU6CCMiA
+//Coding in flow on Youtube https://www.youtube.com/channel/UC_Fh8kvtkVPkeihBs42jGcA
+//Pandemonium Games on Youtbe https://www.youtube.com/channel/UCpkMj5b5kl2_YApDvgUCVQQ
+
 public class PlayerController : MonoBehaviour
 {
   public float speed;
