@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 2717231377034371412}
   - component: {fileID: 2717231377034371415}
   - component: {fileID: 4006645142061915264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MeleeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.04373753, y: -0.5510906}
@@ -144,11 +144,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbea1ddd104cd584084d52a23e1312bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 3
+  startingHealth: 4
   iFramesDuration: 0
   numberOfFlashes: 0
   components:
   - {fileID: 2717231377034371415}
+  deathSound: {fileID: 8300000, guid: 30522fbea9570664f98231091ccc0039, type: 3}
+  hurtSound: {fileID: 8300000, guid: 7f274f96e2ccd2b49afaca43bbb3f115, type: 3}
 --- !u!114 &2717231377034371415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +171,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
+  attackSound: {fileID: 8300000, guid: 55d45304dc517c54fadadd7bf471f89b, type: 3}
 --- !u!114 &4006645142061915264
 MonoBehaviour:
   m_ObjectHideFlags: 0

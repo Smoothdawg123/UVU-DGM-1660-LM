@@ -446,7 +446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998f09cca1acb694bad16dd27fbfa3e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WinScreen: {fileID: 0}
 --- !u!4 &772173462
 Transform:
   m_ObjectHideFlags: 0
@@ -547,7 +546,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 772173461}
         m_TargetAssemblyTypeName: GameUI, Assembly-CSharp
-        m_MethodName: PlayAgain
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

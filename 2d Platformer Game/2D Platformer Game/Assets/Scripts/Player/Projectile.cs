@@ -24,12 +24,19 @@ public class Projectile : MonoBehaviour
         lifetime += Time.deltaTime;
         if (lifetime > 5) gameObject.SetActive(false);
     }
+    //If projectile hits enemy or player they will take damage
+    //Animation will trigger and fireball will explode
     private void OnTriggerEnter2D(Collider2D collision)
     {
         hit = true;
         boxCollider.enabled = false;
         anim.SetTrigger("explode");
+
+        if (collision.tag == "Enemy")
+            collision.GetComponent<Health>().TakeDamage(1);
     }
+
+    // This allows the fireballs to be shot in either direction depending if you are facing left or right. 
     public void SetDirection(float _direction)
     {
         lifetime = 0;

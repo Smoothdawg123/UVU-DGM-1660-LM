@@ -17,6 +17,10 @@ public class MeleeEnemy : MonoBehaviour
     public LayerMask playerLayer;
     private float cooldownTimer = Mathf.Infinity;
 
+    [Header("Attack Sound")]
+    public AudioClip attackSound;   
+
+
     //References from scripts and animations
     private Animator anim;
     private Health playerHealth;
@@ -35,11 +39,12 @@ public class MeleeEnemy : MonoBehaviour
         //Attack only when player in sight?
         if (PlayerInSight())
         {
-            if (cooldownTimer >= attackCooldown)
+            if (cooldownTimer >= attackCooldown && playerHealth.currentHealth > 0)
             {
                 //Attack
                 cooldownTimer = 0;
                 anim.SetTrigger("meleeAttack");
+                SoundManager.instance.PlaySound(attackSound);
             }
 
         }
@@ -59,14 +64,14 @@ public class MeleeEnemy : MonoBehaviour
 
         return hit.collider != null;
     }
-    
+    // visual bounds on collider for enemy range of attack
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
         new Vector3(boxCollider.bounds.size.x *range, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
     }
-
+    //Enemy will damage if in sight of player and within it's collider range
     private void DamagePlayer()
     {
         //If player is still in range damage player

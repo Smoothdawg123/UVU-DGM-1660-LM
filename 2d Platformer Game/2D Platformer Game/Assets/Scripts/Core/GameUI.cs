@@ -3,35 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using TMPro;
+
 
 public class GameUI : MonoBehaviour
 {
-    private GameObject Healthbar;
-    public static GameUI instance;
-
-
-    void Awake()
-    {
-        //Set the instance to this script
-        instance = this; 
-    }
-
-    public GameObject WinScreen;
-    public void PlayAgain()
+   //Play Game
+    public void PlayGame()
     {
          SceneManager.LoadScene("Level 1");
 
     }
 
+     //Main Menu    
     public void GoToMainMenu()
     {
          SceneManager.LoadScene("MainMenu");
     }
-
-    public void LoseGame()
+     //Restart
+    public void Restart()
     {
-        SceneManager.LoadScene("WinScreen");
+         SceneManager.UnloadSceneAsync("Level 1");
+          SceneManager.LoadSceneAsync("MainMenu");
     }
+
 
 }

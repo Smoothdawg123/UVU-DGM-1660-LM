@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
   public LayerMask wallLayer;
   private float wallJumpCooldown;
   private float horizontalInput;
+
+  [Header("Sounds")]
+    public AudioClip jumpSound;
+
+
     
   private void Awake()
    {   //Grab reference for rigidbody and animator from object
@@ -49,7 +54,12 @@ public class PlayerController : MonoBehaviour
         body.gravityScale = 3;
 
         if(Input.GetKey(KeyCode.Space))
-         Jump();
+        {
+          Jump();
+          if(Input.GetKeyDown(KeyCode.Space) && isGrounded())
+            SoundManager.instance.PlaySound(jumpSound);
+        }
+         
      }
     else
       wallJumpCooldown += Time.deltaTime;
@@ -58,13 +68,15 @@ public class PlayerController : MonoBehaviour
     {
       if(isGrounded())
       {
+        //Animation for jump and jump power
         body.velocity = new Vector2(body.velocity.x, jumpPower);
-      anim.SetTrigger("jump");
+        anim.SetTrigger("jump");
       }
       else if(onWall() && !isGrounded())
       {
         if(horizontalInput == 0)
         {
+         
           body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
           transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
@@ -79,7 +91,7 @@ public class PlayerController : MonoBehaviour
      RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
      return raycastHit.collider != null;
    }
-
+  //Wall Jumping and staying on wall
   private bool onWall()
  {
    RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);

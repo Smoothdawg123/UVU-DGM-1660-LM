@@ -27,6 +27,7 @@ public class GameUI : MonoBehaviour
     {
         // Set instance to this script
         instance = this;
+        
     }
 
 

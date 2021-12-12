@@ -17,12 +17,19 @@ public class Health : MonoBehaviour
 
     [Header("Components")]
     public Behaviour[] components;
+
+    [Header("Death Sound")]
+    public AudioClip deathSound;
+    public AudioClip hurtSound;
+    
     private void Awake()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
     }
+
+    // Triggers hurt animations and sound effects when either player or enemy is damaged
     public void TakeDamage(float _damage)
     {
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
@@ -31,22 +38,31 @@ public class Health : MonoBehaviour
         {
             anim.SetTrigger("hurt");
             StartCoroutine(Invulnerability());
+            SoundManager.instance.PlaySound(hurtSound);
         }
         else
         {
             if (!dead)
             {
                 anim.SetTrigger("die");
-                SceneManager.LoadScene("WinScreen");
+                //Deactivate all attached component classes
+                foreach (Behaviour component in components)
+                    component.enabled = false;
+
+                dead = true;
+                SoundManager.instance.PlaySound(deathSound);
+                
+               
             }
         }
         
     }
+
     public void AddHealth(float _value)
     {
         currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
     }
-
+    //invincibility frames? 
     private IEnumerator Invulnerability()
     {
         Physics2D.IgnoreLayerCollision(10, 11, true);

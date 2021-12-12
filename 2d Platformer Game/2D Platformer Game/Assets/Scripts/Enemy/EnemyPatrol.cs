@@ -30,7 +30,7 @@ public class EnemyPatrol : MonoBehaviour
         anim.SetBool("moving", false);
 
     }
-
+    // Left Edge and Right Edge. When Enemy hits the position he will change directions
     private void Update()
     {
         if (movingLeft)
@@ -49,7 +49,7 @@ public class EnemyPatrol : MonoBehaviour
         }
         
     }
-
+    //Change Directions 
     private void DirectionChange()
     {
         anim.SetBool("moving", false);
