@@ -11,38 +11,38 @@ private Animator anim;
 private PlayerController playerController;
 private float cooldownTimer = Mathf.Infinity;
 
-private void Awake()
-{
-    anim = GetComponent<Animator>();
-    playerController = GetComponent<PlayerController>();
-}
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        playerController = GetComponent<PlayerController>();
+    }   
 
-private void Update()
-{
-    if (Input.GetMouseButton(0) && cooldownTimer > attackCooldown && playerController.canAttack())
+    private void Update()
+    {
+        if (Input.GetMouseButton(0) && cooldownTimer > attackCooldown && playerController.canAttack())
         Attack();
     
-    cooldownTimer += Time.deltaTime;
-}
+        cooldownTimer += Time.deltaTime;
+    }
 
-private void Attack()
-{
-    anim.SetTrigger("attack");
-    cooldownTimer = 0;
-    //pool fireball
-    fireballs[FindFireball()].transform.position = firePoint.position;
-    fireballs[FindFireball()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
-}
-
-private int FindFireball()
-{
-    for (int i = 0; i < fireballs.Length; i++)
+    private void Attack()
     {
-        if(!fireballs[i].activeInHierarchy)
-            return i;
+        anim.SetTrigger("attack");
+        cooldownTimer = 0;
+        //pool fireball
+        fireballs[FindFireball()].transform.position = firePoint.position;
+        fireballs[FindFireball()].GetComponent<Projectile>().SetDirection(Mathf.Sign(transform.localScale.x));
+    }
+
+    private int FindFireball()
+    {
+        for (int i = 0; i < fireballs.Length; i++)
+        {
+            if(!fireballs[i].activeInHierarchy)
+                return i;
+
+        }
+        return 0;
 
     }
-    return 0;
-
-}
 }

@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
     public float speed;
     private float direction;
     private bool hit;
-    public float lifetime;
+    private float lifetime;
 
     private Animator anim;
     private BoxCollider2D boxCollider;
@@ -29,9 +29,6 @@ public class Projectile : MonoBehaviour
         hit = true;
         boxCollider.enabled = false;
         anim.SetTrigger("explode");
-
-        if(collision.tag == "Enemy")
-            collision.GetComponent<Health>().TakeDamage(1);
     }
     public void SetDirection(float _direction)
     {

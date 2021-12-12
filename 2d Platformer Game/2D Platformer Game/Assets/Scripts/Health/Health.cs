@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -36,15 +37,10 @@ public class Health : MonoBehaviour
             if (!dead)
             {
                 anim.SetTrigger("die");
-
-                //Deactivate or destroy all attached components
-                foreach (Behaviour component in components)
-                    component.enabled = false;
-            
-
-                dead = true;
+                SceneManager.LoadScene("WinScreen");
             }
         }
+        
     }
     public void AddHealth(float _value)
     {
